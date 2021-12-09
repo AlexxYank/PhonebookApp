@@ -1,0 +1,217 @@
+﻿@model PhonebookApp.Models.ContactModel
+@using PhonebookApp.Data
+
+<!DOCTYPE html>
+<html lang="en">
+@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    <div class="container" style="overflow: auto;">
+        <div class="text-center">
+            <h1 class="display-4">Phonebook</h1>
+        </div>
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="nav-item current"><a id="homeTab" class="nav-link" data-toggle="tab" href="#home">Home</a></li>
+            <li class="nav-item"><a id="AddContactTab" class="nav-link" data-toggle="tab" href="#addContact">Add Contact</a></li>
+            <li id="DeletedContactsTab" class="nav-item"><a class="nav-link" data-toggle="tab" href="#deletedContacts">Deleted Contacts</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <br>
+            <div id="home" class="tab-pane fade in active">
+                <div style="display: flex;">
+                    <div style="width: 45%;">
+                        <br>
+                        <div>
+                            <form method="post" enctype="multipart/form-data" asp-controller="Contact" asp-action="SearchContacts">
+                                <div class="input-group">
+                                    <input id="Filter" name="Filter" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" style="width: 70%;"
+                                           aria-describedby="search-addon" />
+                                    <button type="submit" style="border-color: #007bff;" class="btn btn-outline-primary">search</button>
+                                </div>
+                            </form>
+                        </div>
+                        <br>
+                        <br>
+                        <table class="table table-bordered" id="TableContacts">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%; display: none;">Id</th>
+                                    <th style="width: 50%;">Name</th>
+                                    <th style="width: 50%;">Phone Number</th>
+                                    <th style="width: 50%; display: none;">Address</th>
+                                    <th style="width: 50%; display: none;">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody sstyle="height: 200px; overflow: auto;">
+                                @{
+                                    PhonebookDbContext db = new PhonebookDbContext();
+                                    
+
+                                    if (Model != null)
+                                    {
+                                        if (Model.Contacts.Count > 0)
+                                        {
+                                            foreach (Contact contact in Model.Contacts.Where(c => c.UserName == this.User.Identity.Name).Where(c => c.IsDeleted == false))
+                                            {
+                                                <tr>
+                                                    <td id="id" style="display: none;">@contact.ID</td>
+                                                    <td id="name">@contact.FirstName @contact.LastName</td>
+                                                    <td id="pnumber">@contact.PhoneNumber</td>
+                                                    <td id="address" style="display: none;">@contact.Address</td>
+                                                    <td id="email" style="display: none;">@contact.Email</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            foreach (Contact contact in db.Contacts.Where(c => c.UserName == this.User.Identity.Name).Where(c => c.IsDeleted == false))
+                                            {
+                                                <tr>
+                                                    <td id="id" style="display: none;">@contact.ID</td>
+                                                    <td id="name">@contact.FirstName @contact.LastName</td>
+                                                    <td id="pnumber">@contact.PhoneNumber</td>
+                                                    <td id="address" style="display: none;">@contact.Address</td>
+                                                    <td id="email" style="display: none;">@contact.Email</td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (Contact contact in db.Contacts.Where(c => c.UserName == this.User.Identity.Name).Where(c => c.IsDeleted == false))
+                                        {
+                                            <tr>
+                                                <td id="id" style="display: none;">@contact.ID</td>
+                                                <td id="name">@contact.FirstName @contact.LastName</td>
+                                                <td id="pnumber">@contact.PhoneNumber</td>
+                                                <td id="address" style="display: none;">@contact.Address</td>
+                                                <td id="email" style="display: none;">@contact.Email</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="width: 10%">
+
+                    </div>
+                    <div id="ContactInfo" style="width: 45%; text-align: center; display: none;">
+                        <form form method="post" enctype="multipart/form-data" asp-controller="Contact" asp-action="AddContact">
+                            <div class="form-group">
+                                <label for="PhoneNumber">Phone Number</label>
+                                <input id="ID" name="ID" style="display: none;">
+                                <input id="isContactExist" name="isContactExist" style="display: none;" value="true">
+                                <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber">
+                            </div>
+                            <div class="form-group">
+                                <div style="display: flex; text-align: center;">
+                                    <div style="width: 45%;">
+                                        <label for="FirstName">First Name</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="FirstName" name="FirstName">
+                                    </div>
+                                    <div style="width: 10%;">
+
+                                    </div>
+                                    <div style="width: 45%;">
+                                        <label for="LastName">Last Name</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="LastName" name="LastName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="display: flex; text-align: center;">
+                                    <div style="width: 45%;">
+                                        <label for="Address">Address</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="Address" name="Address">
+                                    </div>
+                                    <div style="width: 10%;">
+
+                                    </div>
+                                    <div style="width: 45%;">
+                                        <label for="Email">Email</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="Email" name="Email">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <button type="submit" name="submitButton" class="btn btn-primary" value="Save">Save</button>
+                            <button type="submit" name="submitButton" class="btn btn-danger" value="Delete">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="addContact" class="tab-pane fade">
+                <form form method="post" enctype="multipart/form-data" asp-controller="Contact" asp-action="AddContact">
+                    <div class="form-group">
+                        <label for="FirstName">First Name</label>
+                        <input id="isContactExist" name="isContactExist" style="display: none;" value="false">
+                        <input type="text" class="form-control" style="width: 40%" id="FirstName" name="FirstName" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName">Last Name</label>
+                        <input type="text" class="form-control" style="width: 40%" id="LastName" name="LastName" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label for="PhoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" style="width: 40%" id="PhoneNumber" name="PhoneNumber" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Address</label>
+                        <input type="text" class="form-control" style="width: 40%" id="Address" name="Address" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="text" class="form-control" style="width: 40%" id="Email" name="Email" placeholder="...">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Add to Contacts</button>
+                </form>
+            </div>
+            <div id="deletedContacts" class="tab-pane fade">
+                <form method="post" enctype="multipart/form-data" asp-controller="Contact" asp-action="RecoverContact">
+                    <table class="table table-bordered" id="TableDeletedContacts">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%; display: none;">Id</th>
+                                <th style="width: 50%;">Name</th>
+                                <th style="width: 50%;">Phone Number</th>
+                                <th style="width: 50%; display: none;">Address</th>
+                                <th style="width: 50%; display: none;">Email</th>
+                                <th style="width: 50%;">Recover</th>
+                            </tr>
+                        </thead>
+                        <tbody sstyle="height: 200px; overflow: auto;">
+
+                            @{
+                                foreach (Contact contact in db.Contacts.Where(c => c.UserName == this.User.Identity.Name).Where(c => c.IsDeleted == true))
+                                {
+                                    <tr>
+                                        <td id="idDeleted" name="idDeleted" style="display: none;">@contact.ID</td>
+                                        <td id="nameDeleted">@contact.FirstName @contact.LastName</td>
+                                        <td id="pnumberDeleted">@contact.PhoneNumber</td>
+                                        <td id="addressDeleted" style="display: none;">@contact.Address</td>
+                                        <td id="emailDeleted" style="display: none;">@contact.Email</td>
+                                        <td><button class="recover btn btn-outline-primary text-right" onclick="RecoverContact(@contact.ID)">Recover</button></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+
+
+
+

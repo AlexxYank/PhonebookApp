@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{464316DD-3383-41A6-82AA-6C1990C373D3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PhonebookApp/Views/Home/IndexLogged.cshtml">
+    <Files>
+      <File FileName="PhonebookApp/Controllers/ContactController.cs" Line="66" Column="127" />
+      <File FileName="PhonebookApp/Controllers/HomeController.cs" />
+      <File FileName="PhonebookApp/Views/Home/IndexLogged.cshtml" Line="37" Column="78" />
+      <File FileName="PhonebookApp/Startup.cs" />
+      <File FileName="PhonebookApp/Program.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PhonebookApp" expanded="True">
+            <Node name="PhonebookApp" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True">
+                  <Node name="IndexLogged.cshtml" selected="True" />
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.PhonebookApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
